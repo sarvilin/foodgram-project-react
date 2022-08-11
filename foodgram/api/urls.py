@@ -1,14 +1,14 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-from .views import PostViewSet
+from .views import RecipeViewSet
 
 router = DefaultRouter()
-router.register(r'recipes', PostViewSet, basename='recipes')
+router.register(r'recipes', RecipeViewSet, basename='recipes')
 
 
 urlpatterns = [
-    path('v1/', include(router.urls)),
-    path('v1/', include('djoser.urls')),
-    path('v1/', include('djoser.urls.jwt')),
+    path('', include(router.urls)),
+    path('', include('djoser.urls')),
+    path('', include('djoser.urls.jwt')),
 ]

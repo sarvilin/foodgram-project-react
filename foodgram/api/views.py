@@ -7,7 +7,7 @@ from api.serializers import (RecipeSerializer)
 from recipes.models import Recipe
 
 
-class PostViewSet(viewsets.ModelViewSet):
+class RecipeViewSet(viewsets.ModelViewSet):
     queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer
     permission_classes = [IsAuthenticatedOrReadOnly, IsAuthorChangeDeleteOnly]
