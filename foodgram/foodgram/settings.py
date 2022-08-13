@@ -3,11 +3,16 @@ from datetime import timedelta
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = ')na@q4o#3el*4msm$-3gn9urs)nb26!on-cmtw*d8)_25i92r$'
+SECRET_KEY = os.getenv('SECRET_KEY', default='foo')
 
-DEBUG = True
+DEBUG = os.getenv('DEBUG', default=0)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '84.252.138.138',
+    '127.0.0.1',
+    'localhost',
+    'web',
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
