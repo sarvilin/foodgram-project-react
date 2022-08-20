@@ -22,9 +22,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'djoser',
+    'rest_framework.authtoken',
+    # 'djoser',
     'api',
     'recipes',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -98,28 +100,31 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.2/howto/static-files/
-
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static/'),)
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
+    'DEFAULT_AUTHENTICATION_CLASSES': (  # способ аунтефикации
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': [  # запрет без токена
         'rest_framework.permissions.IsAuthenticated',
     ],
-
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ],
-
     # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 5,
 }
-
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=3),
-    'AUTH_HEADER_TYPES': ('Bearer',),
-}
+# DJOSER = {
+#     'LOGIN_FIELD': 'email',
+#     'HIDE_USERS': False,
+#     'SERIALIZERS': {
+#         'user_create': 'users.serializers.CustomUserCreateSerializer',
+#         'user': 'users.serializers.CustomUserSerializer',
+#         'current_user': 'users.serializers.CustomUserSerializer',
+#     },
+#     'PERMISSIONS': {
+#         'user': ('rest_framework.permissions.IsAuthenticated',),
+#         'user_list': ('rest_framework.permissions.AllowAny',)
+#     }
+# }

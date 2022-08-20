@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from rest_framework.pagination import LimitOffsetPagination, PageNumberPagination
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import (IsAuthenticatedOrReadOnly)
 
 from api.permissions import IsAuthorChangeDeleteOnly
