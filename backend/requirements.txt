@@ -1,4 +1,13 @@
-Django==2.2.19
-pkg_resources==0.0.0
+Django==2.2.28
+djangorestframework
+django-filter
+flake8
+pytest
 pytz==2022.1
+isort
+psycopg2-binary
+pillow
+python-dotenv
+drf_extra_fields
+gunicorn==19.9.0
 sqlparse==0.4.2
