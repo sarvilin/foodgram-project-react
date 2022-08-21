@@ -6,7 +6,20 @@ User = get_user_model()
 
 
 class Recipe(models.Model):
-    text = models.TextField()
+    name = models.CharField(
+        'Название',
+        max_length=200,
+        # choices=ROLE_CHOICES,
+        # default=USER,
+        blank=True
+    )
+    text = models.TextField(
+        'Описание',
+        max_length=200,
+        # choices=ROLE_CHOICES,
+        # default=USER,
+        blank=True
+    )
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,

@@ -11,3 +11,4 @@ python-dotenv
 drf_extra_fields
 gunicorn==19.9.0
 sqlparse==0.4.2
+djoser
