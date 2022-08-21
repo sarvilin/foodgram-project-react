@@ -8,25 +8,33 @@ services:
       - .env
     ports:
       - ${POSTGRES_PORT:-5432}:5432
-#  web:
+#  backend: # web
 #    build:
 #      context: ../backend
 #      dockerfile: Dockerfile
+##    image: sarvilin/foodgram_backend:latest
 #    restart: always
-#    ports:
-#      - 8001:8000
-#    depends_on:
-#      - db
-#    env_file:
-#      - .env
 #    volumes:
 #      - ../backend/:/code
+#      - data_value:/app/data/
+#      - static_value:/app/static/
+#      - media_value:/app/media/
+#    depends_on:
+#      - db
+#    ports:
+#      - 8001:8000
+#    env_file:
+#      - .env
+
   frontend:
+#    image: sarvilin/foodgram_frontend:latest
     build:
       context: ../frontend
       dockerfile: Dockerfile
     volumes:
       - ../frontend/:/app/result_build/
+#    depends_on:
+#      - backend
 
   nginx:
     image: nginx:1.19.3
@@ -36,8 +44,15 @@ services:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
       - ../frontend/build:/usr/share/nginx/html/
       - ../docs/:/usr/share/nginx/html/api/docs/
+#      - ../docs/redoc.html:/usr/share/nginx/html/api/docs/redoc.html
+#      - ../docs/openapi-schema.yml:/usr/share/nginx/html/api/docs/openapi-schema.yml
+      - static_value:/var/html/static/
+      - media_value:/var/html/media/
+#    depends_on:
+#      - backend
 
 volumes:
   postgres_data:
-#  static:
-#  media:
+  static_value:
+  media_value:
+#  data_value:
