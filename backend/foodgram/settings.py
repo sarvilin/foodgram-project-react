@@ -125,16 +125,17 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 6,
 }
-# DJOSER = {
-#     'LOGIN_FIELD': 'email',
-#     'HIDE_USERS': False,
-#     'SERIALIZERS': {
-#         'user_create': 'users.serializers.CustomUserCreateSerializer',
-#         'user': 'users.serializers.CustomUserSerializer',
-#         'current_user': 'users.serializers.CustomUserSerializer',
-#     },
-#     'PERMISSIONS': {
-#         'user': ('rest_framework.permissions.IsAuthenticated',),
-#         'user_list': ('rest_framework.permissions.AllowAny',)
-#     }
-# }
+
+DJOSER = {
+    'LOGIN_FIELD': 'email',
+    'HIDE_USERS': False,
+    'SERIALIZERS': {
+        'user_create': 'users.serializers.CustomUserCreateSerializer',
+        'user': 'users.serializers.CustomUserSerializer',
+        'current_user': 'users.serializers.CustomUserSerializer',
+    },
+    'PERMISSIONS': {
+        'user': ('rest_framework.permissions.IsAuthenticated',),
+        'user_list': ('rest_framework.permissions.AllowAny',)
+    }
+}

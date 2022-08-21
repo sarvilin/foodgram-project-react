@@ -1,5 +1,5 @@
 Django==2.2.28
-djangorestframework
+djangorestframework==3.13.1
 django-filter
 flake8
 pytest
@@ -12,3 +12,4 @@ drf_extra_fields
 gunicorn==19.9.0
 sqlparse==0.4.2
 djoser
+drf-extra-fields
