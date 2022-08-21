@@ -1,5 +1,6 @@
 version: '3.3'
 services:
+
   db:
     image: postgres:12.0
     volumes:
@@ -8,6 +9,7 @@ services:
       - .env
     ports:
       - ${POSTGRES_PORT:-5432}:5432
+
 #  backend: # web
 #    build:
 #      context: ../backend
