@@ -1,19 +1,64 @@
 from drf_extra_fields.fields import Base64ImageField
 from rest_framework import serializers
 
-from recipes.models import Recipe
+from recipes.models import Recipe, Tag, RecipeIngredient, Ingredient
 from users.models import Follow
+from users.serializers import CustomUserSerializer
+
+
+class TagSerializer(serializers.ModelSerializer):
+    name = serializers.CharField(
+        required=True,
+    )
+    slug = serializers.SlugField()
+
+    class Meta:
+        model = Tag
+        fields = '__all__'
+        # lookup_field = 'slug'
+
+
+class IngredientSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Ingredient
+        fields = ('id', 'name', 'measurement_unit',)
+
+
+class RecipeIngredientSerializer(serializers.ModelSerializer):
+    id = serializers.ReadOnlyField(
+        source='ingredient.id'
+    )
+    name = serializers.ReadOnlyField(
+        source='ingredient.name'
+    )
+    measurement_unit = serializers.ReadOnlyField(
+        source='ingredient.measurement_unit'
+    )
+
+    class Meta:
+        model = RecipeIngredient
+        fields = ('id', 'name', 'amount', 'measurement_unit')
 
 
 class RecipeSerializer(serializers.ModelSerializer):
-    author = serializers.SlugRelatedField(
-        read_only=True,
-        slug_field='username',
+    author = CustomUserSerializer(
+        read_only=True
+    )
+    image = Base64ImageField()
+    tags = TagSerializer(
+        many=True,
+        read_only=True
+    )
+    ingredients = RecipeIngredientSerializer(
+        source='ingredients_amounts',
+        many=True, read_only=True,
     )
 
     class Meta:
         model = Recipe
-        fields = ('id', 'name', 'text', 'author')
+        fields = ('id', 'tags', 'author', 'name', 'text', 'image',
+                  'ingredients')
 
 
 class CropRecipeSerializer(serializers.ModelSerializer):
@@ -55,3 +100,5 @@ class FollowSerializer(serializers.ModelSerializer):
 
     def get_recipes_count(self, obj):
         return Recipe.objects.filter(author=obj.author).count()
+
+

@@ -17,7 +17,7 @@ services:
 ##    image: sarvilin/foodgram_backend:latest
 #    restart: always
 #    volumes:
-#      - ../backend/:/code
+##      - ../backend/:/code
 #      - data_value:/app/data/
 #      - static_value:/app/static/
 #      - media_value:/app/media/
@@ -48,13 +48,13 @@ services:
       - ../docs/:/usr/share/nginx/html/api/docs/
 #      - ../docs/redoc.html:/usr/share/nginx/html/api/docs/redoc.html
 #      - ../docs/openapi-schema.yml:/usr/share/nginx/html/api/docs/openapi-schema.yml
-      - static_value:/var/html/static/
-      - media_value:/var/html/media/
+#      - static_value:/var/html/static/
+#      - media_value:/var/html/media/
 #    depends_on:
 #      - backend
 
 volumes:
   postgres_data:
-  static_value:
-  media_value:
+#  static_value:
+#  media_value:
 #  data_value:
