@@ -2,6 +2,7 @@ from rest_framework import viewsets
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import (IsAuthenticatedOrReadOnly,
                                         AllowAny)
+from rest_framework.viewsets import ReadOnlyModelViewSet
 
 from api.serializers import (RecipeSerializer, TagSerializer,
                              IngredientSerializer)
@@ -25,9 +26,9 @@ class TagsViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly]
 
 
-# class IngredientsViewSet(viewsets.ModelViewSet):
-#     serializer_class = IngredientSerializer
-#     queryset = Ingredient.objects.all()
-#     pagination_class = None
-#     permission_classes = (AllowAny,)
-#     # filterset_class = IngredientNameFilter
+class IngredientsViewSet(ReadOnlyModelViewSet):
+    # permission_classes = (IsAdminOrReadOnly,)
+    queryset = Ingredient.objects.all()
+    serializer_class = IngredientSerializer
+    # filter_backends = (IngredientSearchFilter,)
+    search_fields = ('^name',)

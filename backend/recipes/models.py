@@ -36,17 +36,17 @@ class Ingredient(models.Model):
         max_length=200,
     )
     measurement_unit = models.CharField(
-        verbose_name='Еденица измерения',
+        verbose_name='Единица измерения',
         max_length=200,
     )
 
-    class Meta:
-        ordering = ('name', )
-        verbose_name = 'ингредиент'
-        verbose_name_plural = 'ингредиенты'
+    # class Meta:
+    #     ordering = ('name', )
+    #     verbose_name = 'ингредиент'
+    #     verbose_name_plural = 'ингредиенты'
 
-    def __str__(self):
-        return f'{self.name}, {self.measurement_unit}'
+    # def __str__(self):
+    #     return f'{self.name}, {self.measurement_unit}'
 
 
 class Recipe(models.Model):
@@ -72,6 +72,7 @@ class Recipe(models.Model):
         Ingredient,
         through='RecipeIngredient',
         verbose_name='Ингредиенты',
+        related_name='recipes',
     )
     tags = models.ManyToManyField(
         Tag,
@@ -89,28 +90,25 @@ class RecipeIngredient(models.Model):
         Ingredient,
         on_delete=models.CASCADE,
         related_name='recipe_ingredients',
-        verbose_name='Ингридиент',
+        # verbose_name='Ингридиент',
     )
     recipe = models.ForeignKey(
         Recipe,
         on_delete=models.CASCADE,
         related_name='recipe_ingredients'
     )
-    amount = models.PositiveSmallIntegerField(
-        default=1,
-        validators=[MinValueValidator(1)],
-        help_text='Количество ингредиента',
+    amount = models.PositiveIntegerField(
+        verbose_name='Количество ингредиента',
     )
 
-    class Meta:
-        verbose_name = 'Ingredient in recipe'
-        verbose_name_plural = 'Ingredients in recipe'
-        constraints = [
-            models.UniqueConstraint(
-                fields=['recipe', 'ingredient'],
-                name='unique_recipe'
-            )
-        ]
+    # class Meta:
+    #     ordering = ['-id']
+    #     verbose_name = 'Количество ингридиента'
+    #     verbose_name_plural = 'Количество ингридиентов'
+    #     constraints = [
+    #         models.UniqueConstraint(fields=['ingredient', 'recipe'],
+    #                                 name='unique ingredients recipe')
+    #     ]
 
 
 class Favorite(models.Model):
@@ -158,14 +156,3 @@ class ShoppingCart(models.Model):
                 name='unique_recipe_cart'
             )
         ]
-
-
-# class TagsRecipe(models.Model):
-#     tag = models.ForeignKey(
-#         Tag,
-#         on_delete=models.CASCADE
-#     )
-#     recipe = models.ForeignKey(
-#         Recipe,
-#         on_delete=models.CASCADE
-#     )

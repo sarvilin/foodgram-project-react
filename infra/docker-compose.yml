@@ -1,14 +1,14 @@
 version: '3.3'
 services:
 
-  db:
-    image: postgres:12.0
-    volumes:
-      - postgres_data:/var/lib/postgresql/data/
-    env_file:
-      - .env
-    ports:
-      - ${POSTGRES_PORT:-5432}:5432
+#  db:
+#    image: postgres:12.0
+#    volumes:
+#      - postgres_data:/var/lib/postgresql/data/
+#    env_file:
+#      - .env
+#    ports:
+#      - ${POSTGRES_PORT:-5432}:5432
 
 #  backend: # web
 #    build:
@@ -48,13 +48,13 @@ services:
       - ../docs/:/usr/share/nginx/html/api/docs/
 #      - ../docs/redoc.html:/usr/share/nginx/html/api/docs/redoc.html
 #      - ../docs/openapi-schema.yml:/usr/share/nginx/html/api/docs/openapi-schema.yml
-#      - static_value:/var/html/static/
-#      - media_value:/var/html/media/
+      - static_value:/var/html/static/
+      - media_value:/var/html/media/
 #    depends_on:
 #      - backend
 
 volumes:
   postgres_data:
-#  static_value:
-#  media_value:
+  static_value:
+  media_value:
 #  data_value:
