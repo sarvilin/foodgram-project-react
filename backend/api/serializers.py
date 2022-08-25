@@ -39,10 +39,9 @@ class RecipeIngredientSerializer(serializers.ModelSerializer):
 
 class RecipeSerializer(serializers.ModelSerializer):
     image = Base64ImageField()
-    tags = TagSerializer(read_only=True, many=True)
-    author = CustomUserSerializer(read_only=True)
+    tags = TagSerializer(many=True)
+    author = CustomUserSerializer()
     ingredients = RecipeIngredientSerializer(
-        read_only=True,
         many=True,
         source='recipe_ingredients',
     )
@@ -56,6 +55,7 @@ class RecipeSerializer(serializers.ModelSerializer):
             'name', 'image', 'text', 'cooking_time', 'id',
             'ingredients'
         )
+        read_only_fields = ('tags', 'author', 'ingredients')
 
     def get_is_favorited(self, obj):
         user = self.context.get('request').user
@@ -152,8 +152,7 @@ class FollowSerializer(serializers.ModelSerializer):
 
     def get_is_subscribed(self, obj):
         return Follow.objects.filter(
-            user=obj.user, author=obj.author
-        ).exists()
+            user=obj.user, author=obj.author).exists()
 
     def get_recipes(self, obj):
         request = self.context.get('request')
