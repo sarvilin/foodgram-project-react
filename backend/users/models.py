@@ -19,13 +19,16 @@ class Follow(models.Model):
     )
 
     class Meta:
-        ordering = ['-id']
+        # ordering = ['-id']
+        ordering = ['user', 'author']
         verbose_name = 'Подписка'
         verbose_name_plural = 'Подписки'
         constraints = [
             models.UniqueConstraint(
                 fields=['user', 'author'],
                 name='unique follow',
-                # name='unique_object'
             )
         ]
+
+    def __str__(self):
+        return '{} - {}'.format(self.user, self.author)

@@ -10,17 +10,21 @@ class Tag(models.Model):
     name = models.CharField(
         max_length=200,
         unique=True,
-        verbose_name='Название'
+        verbose_name='Название',
+        help_text = 'Введите название тэга.'
     )
     color = models.CharField(
         max_length=7,
+        default="#ffffff",
         unique=True,
-        verbose_name='Цветовой HEX-код'
+        verbose_name='Цветовой HEX-код',
+        help_text='Выберете цвет тэга.'
     )
     slug = models.SlugField(
         max_length=200,
         unique=True,
-        verbose_name='Slug'
+        verbose_name='Slug',
+        help_text='Введите slug тэга.'
     )
 
     class Meta:
@@ -29,7 +33,7 @@ class Tag(models.Model):
         verbose_name_plural = 'Теги'
 
     def __str__(self):
-        return self.name
+        return self.slug
 
 
 class Ingredient(models.Model):
@@ -118,6 +122,8 @@ class RecipeIngredient(models.Model):
     #         models.UniqueConstraint(fields=['ingredient', 'recipe'],
     #                                 name='unique ingredients recipe')
     #     ]
+    def __str__(self):
+        return '{} - {}'.format(self.ingredient, self.amount)
 
 
 class Favorite(models.Model):
@@ -125,6 +131,7 @@ class Favorite(models.Model):
         User,
         on_delete=models.CASCADE,
         verbose_name='Пользователь',
+        related_name='fan'
     )
     recipe = models.ForeignKey(
         Recipe,
@@ -134,7 +141,8 @@ class Favorite(models.Model):
     )
 
     class Meta:
-        ordering = ['-id']
+        # ordering = ['-id']
+        ordering = ['user', 'recipe']
         verbose_name = 'Избранное'
         verbose_name_plural = 'Избранные'
         constraints = [
@@ -144,8 +152,12 @@ class Favorite(models.Model):
             )
         ]
 
+    def __str__(self):
+        return '{} - {}'.format(self.user, self.recipe)
+
 
 class Cart(models.Model):
+    """Модель добавления рецепта в список покупок."""
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
