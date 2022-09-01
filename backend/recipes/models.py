@@ -111,6 +111,8 @@ class RecipeIngredient(models.Model):
         related_name='recipe_ingredients',
     )
     amount = models.PositiveIntegerField(
+        validators=[MinValueValidator(1)],
+        default=1,
         verbose_name='Количество ингредиента',
     )
 
@@ -118,10 +120,13 @@ class RecipeIngredient(models.Model):
         ordering = ['-id']
         verbose_name = 'Количество ингридиента'
         verbose_name_plural = 'Количество ингридиентов'
-    #     constraints = [
-    #         models.UniqueConstraint(fields=['ingredient', 'recipe'],
-    #                                 name='unique ingredients recipe')
-    #     ]
+        constraints = [
+            models.UniqueConstraint(
+                fields=['ingredient', 'recipe'],
+                name='unique ingredients recipe'
+            )
+        ]
+
     def __str__(self):
         return '{} - {}'.format(self.ingredient, self.amount)
 
