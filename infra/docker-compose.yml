@@ -11,10 +11,10 @@ services:
 #      - ${POSTGRES_PORT:-5432}:5432
 
   backend: # web
+#    image: sarvilin/foodgram_backend:latest
     build:
       context: ../backend
       dockerfile: Dockerfile
-#    image: sarvilin/foodgram_backend:latest
     restart: always
     volumes:
       - static_value:/app/static/
