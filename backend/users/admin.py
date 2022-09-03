@@ -1,14 +1,24 @@
-from django.contrib import admin
+from django.contrib.admin import register
+from django.contrib.auth.admin import UserAdmin
 
-from users.models import Follow, User
-
-
-# class UserAdmin(admin.ModelAdmin):
-#     list_display = ('name', 'measurement_unit')
-#     list_filter = ('name',)
-#     search_fields = ('name',)
+from .models import MyUser
 
 
-admin.site.register(Follow)
-# admin.site.register(UserAdmin)
+@register(MyUser)
+class MyUserAdmin(UserAdmin):
+    list_display = (
+        'username', 'first_name', 'last_name', 'email',
+    )
+    fields = (
+        ('username', 'email', ),
+        ('first_name', 'last_name', ),
+    )
+    fieldsets = []
 
+    search_fields = (
+        'username', 'email',
+    )
+    list_filter = (
+        'first_name', 'email',
+    )
+    save_on_top = True
