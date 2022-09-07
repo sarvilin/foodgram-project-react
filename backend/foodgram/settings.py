@@ -10,7 +10,6 @@ ALLOWED_HOSTS = [
     '84.252.138.138',
     '127.0.0.1',
     'localhost',
-    'web',
     'backend',
 ]
 
@@ -112,10 +111,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static/'),)
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [  # запрет без токена
-        'rest_framework.permissions.IsAuthenticated',
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ],
-    'DEFAULT_AUTHENTICATION_CLASSES': (  # способ аунтефикации
+    'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',

@@ -61,10 +61,6 @@ class UserSerializer(ModelSerializer):
             raise ValidationError(
                 'Длина username допустима от 5 до 200'
             )
-        if not username.isalpha():
-            raise ValidationError(
-                'В username допустимы только буквы.'
-            )
         return username.capitalize()
 
 
