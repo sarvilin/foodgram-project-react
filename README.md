@@ -4,7 +4,7 @@
 
 развернут по адресу http://84.252.138.138
 
-![yamdb_workflow](https://github.com/sarvilin/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg)
+![yamdb_workflow](https://github.com/sarvilin/foodgram-project-react/actions/workflows/yamdb_workflow.yml/badge.svg)
 
 ## Описание
 Приложение «Продуктовый помощник»: сайт, на котором пользователи будут публиковать рецепты,
