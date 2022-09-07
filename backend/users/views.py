@@ -4,14 +4,14 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.status import HTTP_401_UNAUTHORIZED
 
-from api.mixins import AddDelViewMixin
+from api.mixins import AddDeleteViewMixin
 from api.paginators import PageLimitPagination
 from api.serializers import UserSubscribeSerializer
 
 User = get_user_model()
 
 
-class UserViewSet(DjoserUserViewSet, AddDelViewMixin):
+class UserViewSet(DjoserUserViewSet, AddDeleteViewMixin):
     pagination_class = PageLimitPagination
     add_serializer = UserSubscribeSerializer
 

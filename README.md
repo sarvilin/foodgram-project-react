@@ -81,4 +81,4 @@ TELEGRAM_TOKEN # Токен бота
 
 ## Участники:
 
-[Сарвилин Алексей.](https://github.com/sarvilin/foodgram-project-react)
+[Сарвилин Алексей](https://github.com/sarvilin/foodgram-project-react)

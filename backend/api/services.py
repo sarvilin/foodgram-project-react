@@ -1,8 +1,8 @@
 from string import hexdigits
 
-from recipes.models import RecipeIngredient
-
 from rest_framework.serializers import ValidationError
+
+from recipes.models import RecipeIngredient
 
 
 def recipe_amount_ingredients_set(recipe, ingredients):
@@ -16,27 +16,19 @@ def recipe_amount_ingredients_set(recipe, ingredients):
 
 def check_value_validate(value, klass=None):
     if not str(value).isdecimal():
-        raise ValidationError(
-            f'{value} должно содержать цифру'
-        )
+        raise ValidationError(f'{value} должно содержать цифру')
     if klass:
         obj = klass.objects.filter(id=value)
         if not obj:
-            raise ValidationError(
-                f'{value} не существует'
-            )
+            raise ValidationError(f'{value} не существует')
         return obj[0]
 
 
 def is_hex_color(value):
     if len(value) not in (3, 6):
-        raise ValidationError(
-            f'{value} не правильной длины ({len(value)}).'
-        )
+        raise ValidationError(f'{value} неправильной длины ({len(value)}).')
     if not set(value).issubset(hexdigits):
-        raise ValidationError(
-            f'{value} не шестнадцатиричное.'
-        )
+        raise ValidationError(f'{value} нешестнадцатиричное')
 
 
 incorrect_layout = str.maketrans(

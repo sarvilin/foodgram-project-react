@@ -11,11 +11,13 @@ from rest_framework.status import HTTP_400_BAD_REQUEST
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 
 from recipes.models import RecipeIngredient, Ingredient, Recipe, Tag
-from .mixins import AddDelViewMixin
+from .mixins import AddDeleteViewMixin
 from .paginators import PageLimitPagination
 from .permissions import AdminOrReadOnly, AuthorStaffOrReadOnly
-from .serializers import (IngredientSerializer, RecipeSerializer,
-                          ShortRecipeSerializer, TagSerializer)
+from .serializers import (
+    IngredientSerializer, RecipeSerializer, ShortRecipeSerializer,
+    TagSerializer
+)
 from .services import incorrect_layout
 
 User = get_user_model()
@@ -37,8 +39,6 @@ class IngredientsViewSet(ReadOnlyModelViewSet):
     queryset = Ingredient.objects.all()
     serializer_class = IngredientSerializer
     permission_classes = (AdminOrReadOnly,)
-    # filter_backends = (IngredientSearchFilter,)
-    # search_fields = ('^name',)
     pagination_class = None
 
     def get_queryset(self):
@@ -62,23 +62,19 @@ class IngredientsViewSet(ReadOnlyModelViewSet):
         return Response(data)
 
 
-class RecipeViewSet(ModelViewSet, AddDelViewMixin):
+class RecipeViewSet(ModelViewSet, AddDeleteViewMixin):
     queryset = Recipe.objects.select_related('author')
     serializer_class = RecipeSerializer
     permission_classes = (AuthorStaffOrReadOnly,)
     pagination_class = PageLimitPagination
     add_serializer = ShortRecipeSerializer
 
-    # def perform_create(self, serializer):
-    #     serializer.save(author=self.request.user)
-
     def get_queryset(self):
         queryset = self.queryset
 
         tags = self.request.query_params.getlist('tags')
         if tags:
-            queryset = queryset.filter(
-                tags__slug__in=tags).distinct()
+            queryset = queryset.filter(tags__slug__in=tags).distinct()
 
         author = self.request.query_params.get('author')
         if author:
@@ -102,13 +98,17 @@ class RecipeViewSet(ModelViewSet, AddDelViewMixin):
 
         return queryset
 
-    @action(methods=[s.lower() for s in (('GET', 'POST',) + ('DELETE',))],
-            detail=True)
+    @action(
+        methods=[s.lower() for s in (('GET', 'POST',) + ('DELETE',))],
+        detail=True
+    )
     def favorite(self, request, pk):
         return self.add_del_obj(pk, 'favorite')
 
-    @action(methods=[s.lower() for s in (('GET', 'POST',) + ('DELETE',))],
-            detail=True)
+    @action(
+        methods=[s.lower() for s in (('GET', 'POST',) + ('DELETE',))],
+        detail=True
+    )
     def shopping_cart(self, request, pk):
         return self.add_del_obj(pk, 'shopping_cart')
 
@@ -118,20 +118,21 @@ class RecipeViewSet(ModelViewSet, AddDelViewMixin):
         if not user.carts.exists():
             return Response(status=HTTP_400_BAD_REQUEST)
         ingredients = RecipeIngredient.objects.filter(
-            recipe__in=(user.carts.values('id'))
-        ).values(
+            recipe__in=(user.carts.values('id'))).values(
             ingredient=F('ingredients__name'),
             measure=F('ingredients__measurement_unit')
         ).annotate(amount=Sum('amount'))
 
+
         filename = f'{user.username}_shopping_list.txt'
+        time_now = dt.now().strftime(DATE_TIME_FORMAT)
         shopping_list = (
             f'Список покупок для:\n\n{user.first_name}\n\n'
-            f'{dt.now().strftime(DATE_TIME_FORMAT)}\n\n'
+            f'{time_now}\n\n'
         )
-        for ing in ingredients:
+        for ingredient in ingredients:
             shopping_list += (
-                f'{ing["ingredient"]}: {ing["amount"]} {ing["measure"]}\n'
+                f'{ingredient["ingredient"]}: {ingredient["amount"]} {ingredient["measure"]}\n'
             )
 
         shopping_list += '\n\nВыгрузка из Foodgram'

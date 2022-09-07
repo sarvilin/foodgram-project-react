@@ -1,20 +1,19 @@
 from django.contrib.auth import get_user_model
 from django.db.models import F
 from drf_extra_fields.fields import Base64ImageField
-from rest_framework.serializers import (ModelSerializer,
-                                        SerializerMethodField,
-                                        ValidationError)
+from rest_framework.serializers import (
+    ModelSerializer, SerializerMethodField, ValidationError
+)
 
 from recipes.models import Recipe, Tag, Ingredient
-from .services import (check_value_validate,
-                       is_hex_color,
-                       recipe_amount_ingredients_set)
+from .services import (
+    check_value_validate, is_hex_color, recipe_amount_ingredients_set
+)
 
 User = get_user_model()
 
 
 class ShortRecipeSerializer(ModelSerializer):
-    # image = Base64ImageField()
 
     class Meta:
         model = Recipe
@@ -58,9 +57,7 @@ class UserSerializer(ModelSerializer):
 
     def validate_username(self, username):
         if len(username) < 5:
-            raise ValidationError(
-                'Длина username допустима от 5 до 200'
-            )
+            raise ValidationError('Длина username допустима от 5 до 200')
         return username.capitalize()
 
 
@@ -200,14 +197,12 @@ class RecipeSerializer(ModelSerializer):
         tags = validated_data.get('tags')
         ingredients = validated_data.get('ingredients')
 
-        recipe.image = validated_data.get(
-            'image', recipe.image)
-        recipe.name = validated_data.get(
-            'name', recipe.name)
-        recipe.text = validated_data.get(
-            'text', recipe.text)
+        recipe.image = validated_data.get('image', recipe.image)
+        recipe.name = validated_data.get('name', recipe.name)
+        recipe.text = validated_data.get('text', recipe.text)
         recipe.cooking_time = validated_data.get(
-            'cooking_time', recipe.cooking_time)
+            'cooking_time', recipe.cooking_time
+        )
 
         if tags:
             recipe.tags.clear()
