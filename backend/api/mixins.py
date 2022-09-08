@@ -11,11 +11,6 @@ class AddDeleteViewMixin:
     add_serializer = None
 
     def add_del_obj(self, obj_id, manager):
-        assert self.add_serializer is not None, (
-            f'{self.__class__.__name__} should include '
-            'an `add_serializer` attribute.'
-        )
-
         user = self.request.user
         if user.is_anonymous:
             return Response(status=HTTP_401_UNAUTHORIZED)

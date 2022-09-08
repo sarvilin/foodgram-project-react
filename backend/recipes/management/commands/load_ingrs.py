@@ -14,10 +14,12 @@ class Command(BaseCommand):
     help = 'loading ingredients from data in json'
 
     def add_arguments(self, parser):
-        parser.add_argument('filename',
-                            default='ingredients.json',
-                            nargs='?',
-                            type=str)
+        parser.add_argument(
+            'filename',
+            default='ingredients.json',
+            nargs='?',
+            type=str
+        )
 
     def handle(self, *args, **options):
         try:
@@ -31,11 +33,14 @@ class Command(BaseCommand):
                             measurement_unit=ingredient["measurement_unit"]
                         )
                     except IntegrityError:
-                        print(f'Ингридиет {ingredient["name"]} '
-                              f'{ingredient["measurement_unit"]} '
-                              f'уже есть в базе')
+                        print(
+                            f'Ингридиет {ingredient["name"]} '
+                            f'{ingredient["measurement_unit"]} '
+                            f'уже есть в базе'
+                        )
             self.stdout.write(self.style.SUCCESS(
-                'Все ингредиенты загружены!'))
+                'Все ингредиенты загружены!')
+            )
 
         except FileNotFoundError:
             raise CommandError('Файл отсутствует в директории data')

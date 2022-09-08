@@ -194,6 +194,11 @@ class RecipeSerializer(ModelSerializer):
         return recipe
 
     def update(self, recipe, validated_data):
+        # recipe.ingredients.clear()
+        # recipe.tags.clear()
+        # recipe = self.objects(recipe, validated_data)
+        # return super().update(recipe, validated_data)
+
         tags = validated_data.get('tags')
         ingredients = validated_data.get('ingredients')
 
