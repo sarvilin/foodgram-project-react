@@ -15,7 +15,7 @@ class UserViewSet(DjoserUserViewSet, AddDeleteViewMixin):
     pagination_class = PageLimitPagination
     add_serializer = UserSubscribeSerializer
 
-    @action(methods=[s.lower() for s in (('GET', 'POST',) + ('DELETE',))],
+    @action(methods=['get', 'post', 'delete'],
             detail=True)
     def subscribe(self, request, id):
         return self.add_del_obj(id, 'subscribe')
@@ -28,6 +28,8 @@ class UserViewSet(DjoserUserViewSet, AddDeleteViewMixin):
         authors = user.subscribe.all()
         pages = self.paginate_queryset(authors)
         serializer = UserSubscribeSerializer(
-            pages, many=True, context={'request': request}
+            pages,
+            many=True,
+            context={'request': request}
         )
         return self.get_paginated_response(serializer.data)

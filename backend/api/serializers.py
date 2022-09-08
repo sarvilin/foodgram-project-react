@@ -5,7 +5,7 @@ from rest_framework.serializers import (
     ModelSerializer, SerializerMethodField, ValidationError
 )
 
-from recipes.models import Recipe, Tag, Ingredient
+from recipes.models import Recipe, Tag, Ingredient, RecipeIngredient
 from .services import (
     check_value_validate, is_hex_color, recipe_amount_ingredients_set
 )
@@ -194,11 +194,6 @@ class RecipeSerializer(ModelSerializer):
         return recipe
 
     def update(self, recipe, validated_data):
-        # recipe.ingredients.clear()
-        # recipe.tags.clear()
-        # recipe = self.objects(recipe, validated_data)
-        # return super().update(recipe, validated_data)
-
         tags = validated_data.get('tags')
         ingredients = validated_data.get('ingredients')
 
@@ -219,3 +214,26 @@ class RecipeSerializer(ModelSerializer):
 
         recipe.save()
         return recipe
+
+
+        # tags = validated_data.pop('tags', None)
+        # ingredients = validated_data.pop('ingredients', None)
+        # recipe.ingredient.all().delete()
+        # if tags is not None:
+        #     recipe.tags.set(tags)
+        # obj = [
+        #     RecipeIngredient(
+        #         recipe=recipe,
+        #         ingredient=ingredient['id'],
+        #         amount=ingredient['amount'],
+        #     )
+        #     for ingredient in ingredients
+        # ]
+        # RecipeIngredient.objects.bulk_create(obj)
+        # return super().update(recipe, validated_data)
+
+
+        # recipe.ingredients.clear()
+        # recipe.tags.clear()
+        # recipe = self.objects(recipe, validated_data)
+        # return super().update(recipe, validated_data)

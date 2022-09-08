@@ -99,14 +99,14 @@ class RecipeViewSet(ModelViewSet, AddDeleteViewMixin):
         return queryset
 
     @action(
-        methods=[s.lower() for s in (('GET', 'POST',) + ('DELETE',))],
+        methods=['get', 'post', 'delete'],
         detail=True
     )
     def favorite(self, request, pk):
         return self.add_del_obj(pk, 'favorite')
 
     @action(
-        methods=[s.lower() for s in (('GET', 'POST',) + ('DELETE',))],
+        methods=['get', 'post', 'delete'],
         detail=True
     )
     def shopping_cart(self, request, pk):
