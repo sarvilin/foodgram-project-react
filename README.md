@@ -76,7 +76,7 @@ TELEGRAM_TOKEN # Токен бота
 - Сделать миграции `sudo docker-compose exec backend python manage.py migrate`
 - Соберите статику командой `sudo docker-compose exec backend python manage.py collectstatic --no-input`
 - Создайте суперпользователя Django `sudo docker-compose exec backend python manage.py createsuperuser`
-- Загрузите в базу данных ингредиенты `sudo docker-compose exec backend python3 manage.py load_ingrs`
+- Загрузите в базу данных ингредиенты `sudo docker-compose exec backend python3 manage.py loaddata ingredients.json`
 - Загрузите в базу данных теги `sudo docker-compose exec backend python3 manage.py load_tags`
 
 ## Участники:
