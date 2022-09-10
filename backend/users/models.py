@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy
 CharField.register_lookup(Length)
 
 
-class CustomUser(AbstractUser):
+class UserToSubscribe(AbstractUser):
     email = EmailField(
         verbose_name='Email',
         max_length=200,

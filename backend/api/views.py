@@ -1,6 +1,7 @@
 from urllib.parse import unquote
 
 from django.contrib.auth import get_user_model
+from django.http import HttpResponse
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
@@ -15,7 +16,7 @@ from .serializers import (
     IngredientSerializer, RecipeSerializer, ShortRecipeSerializer,
     TagSerializer
 )
-from .services import incorrect_layout, generate_shoping_list
+from .services import incorrect_layout, generate_shopping_list
 
 User = get_user_model()
 
@@ -45,12 +46,13 @@ class IngredientsViewSet(ReadOnlyModelViewSet):
             else:
                 name = name.translate(incorrect_layout)
             name = name.lower()
-            stw_queryset = list(queryset.filter(name__startswith=name))
-            cnt_queryset = queryset.filter(name__contains=name)
-            stw_queryset.extend(
-                [ing for ing in cnt_queryset if ing not in stw_queryset]
+            startswith_queryset = list(queryset.filter(name__startswith=name))
+            contains_queryset = queryset.filter(name__contains=name)
+            startswith_queryset.extend(
+                [ingredient for ingredient in contains_queryset
+                 if ingredient not in startswith_queryset]
             )
-            queryset = stw_queryset
+            queryset = startswith_queryset
         return queryset
 
     def get_paginated_response(self, data):
@@ -80,15 +82,15 @@ class RecipeViewSet(ModelViewSet, AddDeleteViewMixin):
             return queryset
 
         is_in_shopping = self.request.query_params.get('is_in_shopping_cart')
-        if is_in_shopping in ('1', 'true',):
+        if is_in_shopping in ('1', 'true'):
             queryset = queryset.filter(cart=user.id)
-        elif is_in_shopping in ('0', 'false',):
+        elif is_in_shopping in ('0', 'false'):
             queryset = queryset.exclude(cart=user.id)
 
         is_favorited = self.request.query_params.get('is_favorited')
-        if is_favorited in ('1', 'true',):
+        if is_favorited in ('1', 'true'):
             queryset = queryset.filter(favorite=user.id)
-        if is_favorited in ('0', 'false',):
+        if is_favorited in ('0', 'false'):
             queryset = queryset.exclude(favorite=user.id)
 
         return queryset
@@ -113,4 +115,8 @@ class RecipeViewSet(ModelViewSet, AddDeleteViewMixin):
         permission_classes=[IsAuthenticated],
     )
     def download_shopping_cart(self, request):
-        return generate_shoping_list(request)
+        shopping_list = generate_shopping_list(request.user)
+        response = HttpResponse(
+            shopping_list, content_type='text.txt; charset=utf-8'
+        )
+        return response

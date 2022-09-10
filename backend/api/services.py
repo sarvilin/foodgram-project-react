@@ -2,7 +2,6 @@ from datetime import datetime as dt
 from string import hexdigits
 
 from django.db.models import F, Sum
-from django.http.response import HttpResponse
 from rest_framework.response import Response
 from rest_framework.serializers import ValidationError
 from rest_framework.status import HTTP_400_BAD_REQUEST
@@ -43,8 +42,7 @@ def is_hex_color(value):
         raise ValidationError(f'{value} нешестнадцатиричное')
 
 
-def generate_shoping_list(request):
-    user = request.user
+def generate_shopping_list(user):
     if not user.carts.exists():
         return Response(status=HTTP_400_BAD_REQUEST)
     ingredients = RecipeIngredient.objects.filter(
@@ -53,22 +51,17 @@ def generate_shoping_list(request):
         measure=F('ingredients__measurement_unit')
     ).annotate(amount=Sum('amount'))
 
-    filename = f'{user.username}_shopping_list.txt'
     time_now = dt.now().strftime(DATE_TIME_FORMAT)
     shopping_list = (
         f'Список покупок для:\n\n{user.first_name}\n\n'
         f'{time_now}\n\n'
     )
-    for ingredient in ingredients:
-        shopping_list += (
-            f'{ingredient["ingredient"]}: {ingredient["amount"]}'
-            f'{ingredient["measure"]}\n'
-        )
-
+    shopping_list += '\n'.join([
+        f'{ingredient["ingredient"]} - {ingredient["amount"]} '
+        f'{ingredient["measure"]}'
+        for ingredient in ingredients
+    ])
     shopping_list += '\n\nВыгрузка из Foodgram'
+    return shopping_list
 
-    response = HttpResponse(
-        shopping_list, content_type='text.txt; charset=utf-8'
-    )
-    response['Content-Disposition'] = f'attachment; filename={filename}'
-    return response
+
