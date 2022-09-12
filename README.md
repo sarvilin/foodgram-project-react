@@ -50,6 +50,7 @@ DB_PORT=5432 # порт для подключения к БД
 
 
 
+
 - скопировать на сервер файлы `docker-compose.yaml`, `.env` и папку `nginx` командами:
 ```
 scp docker-compose.yaml  <user>@<server-ip>:
