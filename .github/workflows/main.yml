@@ -94,7 +94,6 @@ jobs:
 #          sudo docker-compose rm frontend
           rm .env
           touch .env
-  
           echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
           echo DB_ENGINE=${{ secrets.DB_ENGINE }} >> .env
           echo DB_NAME=${{ secrets.DB_NAME }} >> .env
@@ -104,7 +103,7 @@ jobs:
           echo DB_PORT=${{ secrets.DB_PORT }} >> .env
                   
           sudo docker-compose up -d
-          
+
 #          sudo docker-compose stop
 #          sudo docker rm foodgram_frontend_1
 #          sudo docker rm foodgram_backend_1
