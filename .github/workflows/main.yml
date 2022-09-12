@@ -53,7 +53,7 @@ jobs:
   build_push_frontend_to_DockerHub:
     name: Building front image and pushing it to Docker Hub
     runs-on: ubuntu-20.04
-    needs: tests
+#    needs: tests
     steps:
     - uses: actions/checkout@v2
 
