@@ -12,13 +12,18 @@
 Сервис «Список покупок» позволит пользователям создавать список продуктов, которые нужно 
 купить для приготовления выбранных блюд. 
 
-Полная документация к API:  http://84.252.138.138/api/docs/redoc.html
 
+## Технологии
+[![Python](https://img.shields.io/badge/-Python-464646?style=flat-square&logo=Python)](https://www.python.org/)
+[![Django](https://img.shields.io/badge/-Django-464646?style=flat-square&logo=Django)](https://www.djangoproject.com/)
+[![Django REST Framework](https://img.shields.io/badge/-Django%20REST%20Framework-464646?style=flat-square&logo=Django%20REST%20Framework)](https://www.django-rest-framework.org/)
+[![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-464646?style=flat-square&logo=PostgreSQL)](https://www.postgresql.org/)
+[![Nginx](https://img.shields.io/badge/-NGINX-464646?style=flat-square&logo=NGINX)](https://nginx.org/ru/)
+[![gunicorn](https://img.shields.io/badge/-gunicorn-464646?style=flat-square&logo=gunicorn)](https://gunicorn.org/)
+[![docker](https://img.shields.io/badge/-Docker-464646?style=flat-square&logo=docker)](https://www.docker.com/)
+[![GitHub%20Actions](https://img.shields.io/badge/-GitHub%20Actions-464646?style=flat-square&logo=GitHub%20actions)](https://github.com/features/actions)
+[![Yandex.Cloud](https://img.shields.io/badge/-Yandex.Cloud-464646?style=flat-square&logo=Yandex.Cloud)](https://cloud.yandex.ru/)
 
-###  Технологии
-- Python 3.7
-- Django 2.2.19
-- DjangoREST framework 3.13.1
 
 ## Установка на локальном компьютере
 Эти инструкции помогут вам создать копию проекта и запустить ее на локальном компьютере для целей разработки и тестирования.
@@ -34,6 +39,7 @@
 - Перейдите в папку `cd foodgram-project-react/infra`
 - Создайте файл `.env` командой `touch .env` и добавьте в него переменные окружения для работы с базой данных:
 ```
+DB_ENGINE=django.db.backends.postgresql
 DB_NAME=postgres # имя базы данных
 POSTGRES_USER=postgres # логин для подключения к базе данных
 POSTGRES_PASSWORD=postgres # пароль для подключения к БД (установите свой)
@@ -46,17 +52,9 @@ DB_PORT=5432 # порт для подключения к БД
 ## Деплой на удаленный сервер
 Для запуска проекта на удаленном сервере необходимо:
 
-
-
-
-
-
-- скопировать на сервер файлы `docker-compose.yaml`, `.env` и папку `nginx` командами:
+- скопировать на сервер файлы `docker-compose.yaml` и  `nginx.conf` командой:
 ```
-scp docker-compose.yaml  <user>@<server-ip>:
-scp .env <user>@<server-ip>:
-scp -r nginx/ <user>@<server-ip>:
-
+scp -r infra/* <user>@<server-ip>:/home/<user>/
 ```
 - создать переменные окружения в разделе `secrets` настроек текущего репозитория:
 ```
@@ -68,10 +66,17 @@ PASSPHRASE # Если ssh-ключ защищен фразой-паролем
 SSH_KEY # Приватный ssh-ключ
 TELEGRAM_TO # ID телеграм-аккаунта
 TELEGRAM_TOKEN # Токен бота
+DB_ENGINE # django.db.backends.postgresql
+DB_HOST # db
+DB_NAME # postgres
+DB_PORT # 5432
+POSTGRESS_PASSWORD # пользователь postgres 
+POSTGRES_USER # пароль postgres 
+SECRET_KEY # секретный ключ Django
 ```
 
 ### После каждого обновления репозитория (`git push`) будет происходить:
-1. Проверка кода на соответствие стандарту PEP8 (с помощью пакета flake8) и запуск pytest из репозитория yamdb_final
+1. Проверка кода на соответствие стандарту PEP8 (с помощью пакета flake8) и запуск pytest из репозитория foodgram-project-react
 2. Сборка и доставка докер-образов на Docker Hub.
 3. Автоматический деплой.
 4. Отправка уведомления в Telegram.
@@ -79,12 +84,12 @@ TELEGRAM_TOKEN # Токен бота
 
 ## После запуска проекта необходимо:
 
-- Сделать миграции `sudo docker-compose exec backend python manage.py migrate`
-- Соберите статику командой `sudo docker-compose exec backend python manage.py collectstatic --no-input`
 - Создайте суперпользователя Django `sudo docker-compose exec backend python manage.py createsuperuser`
 - Загрузите в базу данных ингредиенты `sudo docker-compose exec backend python3 manage.py loaddata ingredients.json`
 - Загрузите в базу данных теги `sudo docker-compose exec backend python3 manage.py load_tags`
 
-## Участники:
 
+### *Backend by:*
 [Сарвилин Алексей](https://github.com/sarvilin/foodgram-project-react)
+### *Frontend by:*
+https://github.com/yandex-praktikum/foodgram-project-react
