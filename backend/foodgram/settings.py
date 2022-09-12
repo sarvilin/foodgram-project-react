@@ -4,10 +4,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = os.getenv('SECRET_KEY', default='foo')
 
-DEBUG = os.getenv('DEBUG', default=1)
+DEBUG = os.getenv('DEBUG', default=0)
 
 ALLOWED_HOSTS = [
     '84.252.138.138',
+    'http://alsv-education.hopto.org'
+    'https://alsv-education.hopto.org'
     '127.0.0.1',
     'localhost',
     'backend',
