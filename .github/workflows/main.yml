@@ -76,8 +76,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs:
-      - build_push_backend_to_dockerHub
-      - build_push_frontend_to_dockerHub
+      - build_push_backend_to_docker_hub
+      - build_push_frontend_to_docker_hub
     steps:
     - name: executing remote ssh commands to deploy
       uses: appleboy/ssh-action@master
