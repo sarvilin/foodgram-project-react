@@ -88,7 +88,6 @@ jobs:
         passphrase: ${{ secrets.PASSPHRASE }}
         script: |
           
-          cd foodgram/
           touch .env
           
           echo DB_ENGINE=${{ secrets.DB_ENGINE }} >> .env
@@ -105,4 +104,3 @@ jobs:
           sudo docker rmi ${{ secrets.DOCKER_USER }}/foodgram_backend
   
           sudo docker-compose up -d
-          sudo docker-compose exec -T backend python manage.py migrate --noinput 
