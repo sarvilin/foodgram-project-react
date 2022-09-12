@@ -71,7 +71,7 @@ jobs:
       with:
         context: ./frontend
         push: true
-        tags: ${{ secrets.DOCKER_USER }}/foodgram_front:latest
+        tags: ${{ secrets.DOCKER_USERNAME }}/foodgram_front:latest
 
 
 #  deploy:
