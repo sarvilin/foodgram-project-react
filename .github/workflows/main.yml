@@ -110,7 +110,6 @@ jobs:
 #          sudo docker rm foodgram_backend_1
 #          sudo docker rmi ${{ secrets.DOCKER_USER }}/foodgram_front
 #          sudo docker rmi ${{ secrets.DOCKER_USER }}/foodgram_backend
-  
 
 #          sudo docker-compose exec -T backend python manage.py migrate
 #          sudo docker-compose exec backend python3 manage.py collectstatic --no-input
