@@ -148,9 +148,3 @@ class RecipeIngredient(Model):
         verbose_name = 'Количество ингридиента'
         verbose_name_plural = 'Количество ингридиентов'
         ordering = ['recipe']
-        constraints = (
-            UniqueConstraint(
-                fields=('recipe', 'ingredients', ),
-                name='\n%(app_label)s_%(class)s ingredient already added\n',
-            ),
-        )
