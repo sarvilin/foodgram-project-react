@@ -25,7 +25,7 @@ jobs:
 #        run: |
 #          python -m flake8 backend/
 
-  build_and_push_backend_to_docker_hub:
+  build_push_backend_to_docker_hub:
     name: Building back image and pushing it to Docker Hub
     runs-on: ubuntu-latest
 #    needs: tests
@@ -49,7 +49,7 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/foodgram_backend:latest
 
-  build_push_frontend_to_DockerHub:
+  build_push_frontend_to_dockerHub:
     name: Building front image and pushing it to Docker Hub
     runs-on: ubuntu-20.04
 #    needs: tests
@@ -76,8 +76,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs:
-      - build_push_backend_to_DockerHub
-      - build_push_frontend_to_DockerHub
+      - build_push_backend_to_dockerHub
+      - build_push_frontend_to_dockerHub
     steps:
     - name: executing remote ssh commands to deploy
       uses: appleboy/ssh-action@master
