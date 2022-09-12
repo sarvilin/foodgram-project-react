@@ -49,7 +49,7 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/foodgram_backend:latest
 
-  build_push_frontend_to_dockerHub:
+  build_push_frontend_to_docker_hub:
     name: Building front image and pushing it to Docker Hub
     runs-on: ubuntu-20.04
 #    needs: tests
