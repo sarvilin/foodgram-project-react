@@ -9,10 +9,10 @@ services:
       - .env
 
   backend:
-#    image: sarvilin/foodgram_backend:latest
-    build:
-      context: ../backend
-      dockerfile: Dockerfile
+    image: sarvilin/foodgram_backend:latest
+#    build:
+#      context: ../backend
+#      dockerfile: Dockerfile
     restart: always
     volumes:
       - static_value:/app/static/
@@ -23,10 +23,10 @@ services:
       - .env
 
   frontend:
-#    image: sarvilin/foodgram_frontend:latest
-    build:
-      context: ../frontend
-      dockerfile: Dockerfile
+    image: sarvilin/foodgram_frontend:latest
+#    build:
+#      context: ../frontend
+#      dockerfile: Dockerfile
     volumes:
       - ../frontend/:/app/result_build/
     depends_on:
