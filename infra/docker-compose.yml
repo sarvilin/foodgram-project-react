@@ -10,9 +10,6 @@ services:
 
   backend:
     image: sarvilin/foodgram_backend:latest
-#    build:
-#      context: ../backend
-#      dockerfile: Dockerfile
     restart: always
     volumes:
       - static_value:/app/static/
@@ -24,9 +21,6 @@ services:
 
   frontend:
     image: sarvilin/foodgram_front:latest
-#    build:
-#      context: ../frontend
-#      dockerfile: Dockerfile
     volumes:
       - ../frontend/:/app/result_build/
     depends_on:
