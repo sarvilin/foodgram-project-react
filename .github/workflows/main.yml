@@ -105,3 +105,4 @@ jobs:
           sudo docker rmi ${{ secrets.DOCKER_USER }}/foodgram_backend
   
           sudo docker-compose up -d
+          sudo docker-compose exec -T backend python manage.py migrate --noinput 
