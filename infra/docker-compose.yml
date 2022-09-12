@@ -23,7 +23,7 @@ services:
       - .env
 
   frontend:
-    image: sarvilin/foodgram_frontend:latest
+    image: sarvilin/foodgram_front:latest
 #    build:
 #      context: ../frontend
 #      dockerfile: Dockerfile
