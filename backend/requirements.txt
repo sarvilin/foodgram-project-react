@@ -1,3 +1,4 @@
+Django==2.2.28
 djangorestframework==3.13.1
 django-filter==21.1
 flake8

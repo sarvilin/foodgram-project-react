@@ -37,8 +37,8 @@ class Tag(Model):
         verbose_name_plural = 'Теги'
         ordering = ('name', )
 
-    def __str__(self) -> str:
-        return f'{self.name} (цвет: {self.color})'
+    def __str__(self):
+        return self.name
 
 
 class Ingredient(Model):
@@ -114,15 +114,15 @@ class Recipe(Model):
         verbose_name = 'Рецепт'
         verbose_name_plural = 'Рецепты'
         ordering = ('-pub_date', )
-        constraints = (
-            UniqueConstraint(
-                fields=('name', 'author'),
-                name='unique_for_author'
-            ),
-        )
+        # constraints = (
+        #     UniqueConstraint(
+        #         fields=('name', 'author'),
+        #         name='unique_for_author'
+        #     ),
+        # )
 
-    def __str__(self) -> str:
-        return f'{self.name}. Автор: {self.author}'
+    def __str__(self):
+        return self.name
 
 
 class RecipeIngredient(Model):
@@ -148,12 +148,9 @@ class RecipeIngredient(Model):
         verbose_name = 'Количество ингридиента'
         verbose_name_plural = 'Количество ингридиентов'
         ordering = ['recipe']
-        constraints = (
-            UniqueConstraint(
-                fields=('recipe', 'ingredients', ),
-                name='\n%(app_label)s_%(class)s ingredient already added\n',
-            ),
-        )
-
-    def __str__(self) -> str:
-        return f'{self.amount} {self.ingredients}'
+        # constraints = (
+        #     UniqueConstraint(
+        #         fields=('recipe', 'ingredients', ),
+        #         name='\n%(app_label)s_%(class)s ingredient already added\n',
+        #     ),
+        # )
