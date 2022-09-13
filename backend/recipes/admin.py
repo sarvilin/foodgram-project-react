@@ -21,7 +21,6 @@ class LinksAdmin(ModelAdmin):
 class IngredientAdmin(ModelAdmin):
     list_display = ('name', 'measurement_unit',)
     search_fields = ('name',)
-    list_filter = ('name',)
 
     save_on_top = True
     empty_value_display = EMPTY_VALUE_DISPLAY

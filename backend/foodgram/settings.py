@@ -8,8 +8,8 @@ DEBUG = os.getenv('DEBUG', default=0)
 
 ALLOWED_HOSTS = [
     '84.252.138.138',
-    'http://alsv-education.hopto.org'
-    'https://alsv-education.hopto.org'
+    'http://alsv-education.hopto.org',
+    'https://alsv-education.hopto.org',
     '127.0.0.1',
     'localhost',
     'backend',
@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'django_filters',
     'django_extensions',
     'djoser',
+    'colorfield',
     'api',
     'users',
     'recipes',
