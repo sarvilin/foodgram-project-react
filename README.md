@@ -88,7 +88,6 @@ SECRET_KEY # секретный ключ Django
 - Загрузите в базу данных ингредиенты `sudo docker-compose exec backend python3 manage.py loaddata ingredients.json`
 - Загрузите в базу данных теги `sudo docker-compose exec backend python3 manage.py load_tags`
 
-
 ### *Backend by:*
 [Сарвилин Алексей](https://github.com/sarvilin/foodgram-project-react)
 ### *Frontend by:*
