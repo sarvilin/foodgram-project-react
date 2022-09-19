@@ -6,8 +6,13 @@ SECRET_KEY = os.getenv('SECRET_KEY', default='foo')
 
 DEBUG = os.getenv('DEBUG', default=0)
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS')
-
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', default=[
+    'backend',
+    '84.252.138.138',
+    'alsv-education.hopto.org',
+    '127.0.0.1',
+    'localhost',
+])
 
 INSTALLED_APPS = [
     'django.contrib.admin',
