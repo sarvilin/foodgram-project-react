@@ -133,6 +133,7 @@ dmypy.json
 /backend/static/
 /backend/media/
 /frontend/node_modules/
-/infra/app.conf
+/infra/default_2.conf
 /infra/compose.yml
-/infra/app2.conf
+/infra/default_3.conf
+/infra/compose2.yml
