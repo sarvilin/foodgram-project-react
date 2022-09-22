@@ -2,14 +2,14 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+DEBUG = os.getenv('DEBUG', default=0)
+
+SECRET_KEY = os.getenv('SECRET_KEY', default='foo')
+
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # SECURE_SSL_REDIRECT = True
 # SESSION_COOKIE_SECURE = True
 # CSRF_COOKIE_SECURE = True
-
-SECRET_KEY = os.getenv('SECRET_KEY', default='foo')
-
-DEBUG = os.getenv('DEBUG', default=0)
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', default=[
     'backend',
@@ -95,7 +95,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'UTC'
@@ -103,13 +102,11 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = False
 
-
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
@@ -121,7 +118,6 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 6,
 }
-
 
 DJOSER = {
     'LOGIN_FIELD': 'email',
@@ -139,5 +135,3 @@ DJOSER = {
         'user_create': 'api.serializers.UserSerializer',
     },
 }
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
