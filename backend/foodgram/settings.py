@@ -13,8 +13,8 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', default=[
     'backend',
-    '84.252.138.138',
-    'alsv-education.hopto.org',
+    '158.160.16.215',
+    'a-sar.ru',
     '127.0.0.1',
     'localhost',
 ])
