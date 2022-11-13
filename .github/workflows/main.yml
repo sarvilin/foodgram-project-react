@@ -71,7 +71,6 @@ jobs:
 #        push: true
 #        tags: ${{ secrets.DOCKER_USERNAME }}/foodgram_front:latest
 
-
   deploy:
     runs-on: ubuntu-latest
 #    needs:
