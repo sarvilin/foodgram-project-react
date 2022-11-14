@@ -35,7 +35,7 @@
 ### Запуск проекта (на примере Linux)
 
 - Склонируйте в текущую папку `git clone https://github.com/sarvilin/foodgram-project-react`
-- Перейдите в папку `cd foodgram-project-react/infra`
+- Перейдите в папку `cd foodgram-project-react`
 - Создайте файл `.env` командой `touch .env` и добавьте в него переменные окружения для работы с базой данных:
 ```
 DB_ENGINE=django.db.backends.postgresql
@@ -53,7 +53,8 @@ DB_PORT=5432 # порт для подключения к БД
 
 - скопировать на сервер файлы `docker-compose.yaml` и  `nginx.conf` командой:
 ```
-scp -r infra/* <user>@<server-ip>:/home/<user>/
+scp -r docker-compose.yml <user>@<server-ip>:/home/<user>
+scp -r nginx/default.conf <user>@<server-ip>:/home/<user>/nginx
 ```
 - создать переменные окружения в разделе `secrets` настроек текущего репозитория:
 ```
