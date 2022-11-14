@@ -7,9 +7,9 @@ DEBUG = os.getenv('DEBUG', default=0)
 SECRET_KEY = os.getenv('SECRET_KEY', default='foo')
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-# SECURE_SSL_REDIRECT = True
-# SESSION_COOKIE_SECURE = True
-# CSRF_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', default=[
     'backend',
