@@ -6,7 +6,7 @@ services:
 #    ports:
 #      - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - ./persistentdata/db:/var/lib/postgresql/data/
     env_file:
       - .env
 
@@ -14,8 +14,8 @@ services:
     image: sarvilin/foodgram_backend:latest
     restart: always
     volumes:
-      - static_value:/app/static/
-      - media_value:/app/media/
+      - ./persistentdata/static:/app/static/
+      - ./persistentdata/media:/app/media/
     depends_on:
       - db
     env_file:
@@ -45,8 +45,8 @@ services:
       - ./docs/:/usr/share/nginx/html/api/docs/
       - ./docs/redoc.html:/usr/share/nginx/html/api/docs/redoc.html
       - ./docs/openapi-schema.yml:/usr/share/nginx/html/api/docs/openapi-schema.yml
-      - static_value:/var/html/static/
-      - media_value:/var/html/media/
+      - ./persistentdata/static:/var/html/static/
+      - ./persistentdata/media:/var/html/media/
     depends_on:
       - backend
       - frontend
