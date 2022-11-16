@@ -6,7 +6,7 @@ services:
 #    ports:
 #      - "5432:5432"
     volumes:
-      - ./persistentdata/db:/var/lib/postgresql/data/
+      - ./persistentdata/db:/var/lib/postgresql/data
     env_file:
       - .env
 
@@ -14,8 +14,8 @@ services:
     image: sarvilin/foodgram_backend:latest
     restart: always
     volumes:
-      - ./persistentdata/static:/app/static/
-      - ./persistentdata/media:/app/media/
+      - ./persistentdata/static:/app/static
+      - ./persistentdata/media:/app/media
     depends_on:
       - db
     env_file:
@@ -37,16 +37,14 @@ services:
     command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
     volumes:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./frontend/build:/usr/share/nginx/html/
       - ./persistentdata/certbot/conf:/etc/letsencrypt
       - ./persistentdata/certbot/www:/var/www/certbot
-      - ./persistentdata/static:/var/www/static
-      - ./persistentdata/media:/var/www/media
-      - ./frontend/build:/usr/share/nginx/html/
-      - ./docs/:/usr/share/nginx/html/api/docs/
+      - ./persistentdata/static:/var/html/static
+      - ./persistentdata/media:/var/html/media
+      - ./docs:/usr/share/nginx/html/api/docs
       - ./docs/redoc.html:/usr/share/nginx/html/api/docs/redoc.html
       - ./docs/openapi-schema.yml:/usr/share/nginx/html/api/docs/openapi-schema.yml
-      - ./persistentdata/static:/var/html/static/
-      - ./persistentdata/media:/var/html/media/
     depends_on:
       - backend
       - frontend
@@ -57,8 +55,3 @@ services:
     volumes:
       - ./persistentdata/certbot/conf:/etc/letsencrypt
       - ./persistentdata/certbot/www:/var/www/certbot
-
-volumes:
-  postgres_data:
-  static_value:
-  media_value:
