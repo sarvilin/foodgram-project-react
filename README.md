@@ -2,7 +2,7 @@
 
 версия c Docker, Continuous Integration на GitHub Actions
 
-развернут по адресу http://84.252.138.138
+развернут по адресу https://a-sar.ru
 
 ![workflow](https://github.com/sarvilin/foodgram-project-react/actions/workflows/main.yml/badge.svg)
 
